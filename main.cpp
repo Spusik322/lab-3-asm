@@ -1,4 +1,4 @@
-#include <iostream>
+﻿#include <iostream>
 
 int main() {
     unsigned long nm1;
@@ -9,6 +9,7 @@ int main() {
         xor eax, eax
         xor edx, edx
         xor ecx, ecx
+        xor ebx, ebx
         mov eax, nm1       
         mov ebx, eax       
         mov res1, eax       
@@ -26,23 +27,56 @@ int main() {
 
     std::cout << "Result: " << res1 << std::endl;
 
-    /*unsigned int res2 = 0, num, akum = 0;
-    std::cin >> num;
+
+
+
+
+
+
+
+    int solutions[16];
+    int count = 0;
 
     _asm {
-        xor ecx, ecx
-        mov eax, num
-        mov ebx, 10
-            metka :
+        xor eax, eax
         xor edx, edx
+        xor ecx, ecx
+        xor ebx, ebx
+        mov ecx, 1
+        mov esi, 25
+            loop_start :
+        cmp ecx, esi
+        jge loop_end
+        mov edx, ecx
+        imul edx, 2
+        mov ebx, 50
+        sub ebx, edx
+        mov eax, ebx
+        xor edx, edx
+        mov ebx, 3
         div ebx
-        add ecx, edx
-        cmp eax, 0
-        jne metka
-            metka_end :
-        mov res2, ecx
+        cmp edx, 0
+        jne skip_solution
+        lea edi, solutions
+        mov ebx, count
+        mov edx, ebx
+        imul edx, 8
+        add edi, edx
+        mov dword ptr[edi], ecx
+        mov dword ptr[edi + 4], eax
+        inc dword ptr[count]
+            skip_solution :
+        inc ecx
+        jmp loop_start
+            loop_end :
     }
 
-    std::cout << "summa: " << res2;*/
+    std::cout << "Solutions: " << count << "\n";
+    for (int i = 0; i < count; i++)
+    {
+        int x = solutions[i * 2];
+        int y = solutions[i * 2 + 1];
+        std::cout << "2*" << x << " + 3*" << y << " = " << (2 * x + 3 * y) << "\n";
+    }
     return 0;
 }
