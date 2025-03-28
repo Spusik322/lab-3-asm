@@ -1,0 +1,5 @@
+.gitattributes
+/Debug
+/.vs
+/lab-3-asm
+/x64
